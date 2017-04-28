@@ -1,0 +1,1 @@
+This boxgraph shows the range of digital collection expenditures, print collection expenditures, other collection expenditures and total collection expenditures that each state reported in 2015. The boxplot has 4 pages, one for each region (south, west, midwest, northeast) of the US.
