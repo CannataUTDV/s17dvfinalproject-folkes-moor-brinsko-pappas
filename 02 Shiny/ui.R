@@ -30,7 +30,7 @@ dashboardPage(
                          radioButtons("rb5", "Get Data From:",
                                       c("SQL" = "SQL")),
                          uiOutput("boxplotRegions"), # See http://shiny.rstudio.com/gallery/dynamic-ui.html,
-                         actionButton(inputId = "click5",  label = "To get data, click here"),
+                         actionButton(inputId = "click5",  label = "Click Here for Data"),
                          hr(), # Add space after button.
                          DT::dataTableOutput("boxplotData1")
                 ),
@@ -48,7 +48,7 @@ dashboardPage(
                 tabPanel("Data",  
                          radioButtons("rb4", "Get Data From:",
                                       c("SQL" = "SQL")),
-                         actionButton(inputId = "click4",  label = "To get data, click here"),
+                         actionButton(inputId = "click4",  label = "Click Here for Data"),
                          hr(), # Add space after button.
                          DT::dataTableOutput("histogramData1")
                 ),
@@ -63,7 +63,7 @@ dashboardPage(
                          radioButtons("rb3", "Get Data From:",
                                       c("SQL" = "SQL")),
                          uiOutput("scatterStates"), # See http://shiny.rstudio.com/gallery/dynamic-ui.html,
-                         actionButton(inputId = "click3",  label = "To get data, click here"),
+                         actionButton(inputId = "click3",  label = "Click Here for Data"),
                          hr(), # Add space after button.
                          DT::dataTableOutput("scatterData1")
                 ),
@@ -81,7 +81,7 @@ dashboardPage(
                           min = 0, max = 3.5,  value = .1),
               sliderInput("KPI2", "KPI_Medium:", 
                           min = 3.5, max = 5,  value = .2),
-              actionButton(inputId = "click1",  label = "To get data, click here"),
+              actionButton(inputId = "click1",  label = "Click Here for Data"),
               hr(), # Add space after button.
               DT::dataTableOutput("data1")
             ),
@@ -96,7 +96,7 @@ dashboardPage(
              radioButtons("rb2", "Get Data From:",
                  c("SQL" = "SQL")),
              uiOutput("regions2"), # See http://shiny.rstudio.com/gallery/dynamic-ui.html
-             actionButton(inputId = "click2",  label = "To get data, click here"),
+             actionButton(inputId = "click2",  label = "Click Here for Data"),
              hr(), # Add space after button.
              'Here is data for the "Barchart with Table Calculation" tab',
              hr(),
