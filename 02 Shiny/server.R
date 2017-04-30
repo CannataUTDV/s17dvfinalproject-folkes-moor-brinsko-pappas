@@ -27,8 +27,6 @@ region_list <- as.list(regions$R)
 region_list <- append(list("All" = "All"), region_list)
 region_list5 <- region_list
 
-# The following query is for the Barcharts -> Enrollment Tab.
-
 
 ############################### Start shinyServer Function ####################
 
@@ -200,8 +198,8 @@ shinyServer(function(input, output) {
       tdf = query(
         data.world(propsfile = "www/.data.world"),
         dataset="hsfolkes/s-17-dv-final-project/", type="sql",
-        query="select State, Librarians, State_Population, Young_Adult_Program_Audience, State_Code
-                from states
+        query="select State, Librarians, State_Population
+        from states
         where ? = 'All' or State in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         group by State",
         queryParameters = region_list
@@ -209,32 +207,48 @@ shinyServer(function(input, output) {
     }
     else {
     }
-    
     # The following two lines mimic what can be done with Analytic SQL. Analytic SQL does not currently work in data.world.
-    #tdf2 = tdf %>% group_by(State) %>% summarize(citizens_per_lib = mean(State_Population / Librarians))
-    #dplyr::inner_join(tdf, tdf2, by = "State")
-
-  })
-  output$barchartData1 <- renderDataTable({DT::datatable(dfbc1(),
-                        rownames = FALSE,
-                        extensions = list(Responsive = TRUE, FixedHeader = TRUE) )
-  })
-  output$barchartData2 <- renderDataTable({DT::datatable(df4(),
-                        rownames = FALSE,
-                        extensions = list(Responsive = TRUE, FixedHeader = TRUE) )
-  })
-
-  output$barchartPlot1 <- renderPlot({ggplot(dfbc1(), aes(x=State, y=Young_Adult_Program_Audience)) +
-      #geom_col(fill = Young_Adult_Program_Audience) +
-      theme_light() 
-      #geom_line(aes(x = State_Code, y = mean(Young_Adult_Program_Audience)), colour = "black", size = 1.5)
+    tdf2 = tdf %>% group_by(State) %>% summarize(citizens_per_lib = mean(State_Population / Librarians))
+    dplyr::inner_join(tdf, tdf2, by = "State")
+    
+    
   })
   
-  output$barchartPlot2 <- renderPlot({ggplot(df4(), aes(x = State, y = Young_Adult_Program_Audience)) +
-      geom_col(fill = (Young_Adult_Program_Audience > 40000)) +
-      theme_light() +
-      geom_line(aes(x = State_Code, y = mean(Young_Adult_Program_Audience)), colour = "black", size = 1.5)
+  df2 <-  query(
+    data.world(propsfile = "www/.data.world"),
+    dataset="hsfolkes/s-17-dv-final-project/", type="sql",
+    query="select State, Hours_Open, State_Code
+    from states"
+  )  #%>% View()
+  
+  df3 <- query(
+    data.world(propsfile = "www/.data.world"),
+    dataset="hsfolkes/s-17-dv-final-project/", type="sql",
+    query="select * from census_enrollment"
+  ) 
+  
+  join <- inner_join(df2, df3)
+  output$barchartData1 <- renderDataTable({DT::datatable(dfbc1(),
+                                                         rownames = FALSE,
+                                                         extensions = list(Responsive = TRUE, FixedHeader = TRUE) )
   })
+  
+  output$barchartData2 <- renderDataTable({DT::datatable(join,
+                                                         rownames = FALSE,
+                                                         extensions = list(Responsive = TRUE, FixedHeader = TRUE) )
+  })
+  output$barchartPlot1 <- renderPlot({ggplot(dfbc1(), aes(x=State, y=Librarians, fill = citizens_per_lib)) +
+      geom_col(stat = "identity")
+  })
+  
+  
+  output$barchartPlot2 <- renderPlot({ggplot(data = join) +
+      geom_col(aes(x = State, y = Hours_Open, fill = (Hours_Open > 1000000))) +
+      theme_classic() +
+      #  scale_y_continuous(labels = comma) +
+      geom_line(aes(x = State_Code, y = Enrollment_9to12), colour = "black", size = 1.5)
+  })
+  
   # End Barchart Tab ___________________________________________________________
   
 })
