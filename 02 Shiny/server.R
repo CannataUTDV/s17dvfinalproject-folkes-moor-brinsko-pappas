@@ -60,7 +60,7 @@ shinyServer(function(input, output) {
       df <- query(
         data.world(propsfile = "www/.data.world"),
         dataset="hsfolkes/s-17-dv-final-project/", type="sql",
-        query="select Category, State, Cost as Sales
+        query="select Category, State, Cost
         from states_boxplot
         where (? = 'All' or State in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?))",
         queryParameters = region_list5 ) # %>% View()
@@ -75,16 +75,16 @@ shinyServer(function(input, output) {
   )
   })
   
-  dfbp2 <- eventReactive(c(input$click5, input$boxSalesRange1), {
-    dfbp1() %>% dplyr::filter(Sales >= input$boxSalesRange1[1] & Sales <= input$boxSalesRange1[2]) # %>% View()
+  dfbp2 <- eventReactive(c(input$click5, input$boxCostRange1), {
+    dfbp1() %>% dplyr::filter(Cost >= input$boxCostRange1[1] & Cost <= input$boxCostRange1[2]) # %>% View()
   })
   
     
   output$boxplotPlot1 <- renderPlotly({
     #View(dfbp3())
-    p <- ggplot(dfbp2(), aes(x = Category, y = Sales)) + 
+    p <- ggplot(dfbp2(), aes(x = Category, y = Cost)) + 
       geom_boxplot() +
-      ylim(0, input$boxSalesRange1[2]) +
+      ylim(0, input$boxCostRange1[2]) +
       theme(axis.text.x=element_text(angle=90, size=10, vjust=0.5)) +
       theme_classic()
     ggplotly(p)

@@ -35,9 +35,9 @@ dashboardPage(
                          DT::dataTableOutput("boxplotData1")
                 ),
                 tabPanel("Simple Box Plot", 
-                         sliderInput("boxSalesRange1", "Sales Range:",
+                         sliderInput("boxCostRange1", "Cost Range:",
                                      min = 0, max = 100000000, 
-                                     value = c(min(globals$Sales), max(globals$Sales))),
+                                     value = c(min(globals$Cost), max(globals$Cost))),
                          plotlyOutput("boxplotPlot1", height=500))
               )
       ),
