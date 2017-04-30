@@ -12,7 +12,7 @@ require(lubridate)
 
 online0 = TRUE
 
-# The following query is for the select list in the Boxplots -> Simple Boxplot tab, and Barcharts -> Barchart with Table Calculation tab.
+# The following query is for the select lists. 
 if(online0) {
   regions = query(
     data.world(propsfile = "www/.data.world"),
@@ -27,35 +27,8 @@ region_list <- as.list(regions$R)
 region_list <- append(list("All" = "All"), region_list)
 region_list5 <- region_list
 
-# The following query is for the Barcharts -> High Sales Customers tab data.
-if(online0) {
-  # Step 1:
-  highDiscounts <- query(
-    data.world(propsfile = "www/.data.world"),
-    dataset="cannata/superstoreorders", type="sql",
-    query="
-    SELECT distinct Order_Id, sum(Discount) as sumDiscount
-    FROM SuperStoreOrders
-    group by Order_Id
-    having sum(Discount) >= .3"
-  ) # %>% View()
-  # View(highDiscounts)
-  
-  # Step 2
-  sales <- query(
-    data.world(propsfile = "www/.data.world"),
-    dataset="cannata/superstoreorders", type="sql",
-    query="
-    select Customer_Id, sum(Profit) as sumProfit
-    FROM SuperStoreOrders
-    where Order_Id in 
-      (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    group by Customer_Id",
-    queryParameters = highDiscounts$Order_Id
-    ) # %>% View()
-  # View(sales)
-} else {
-}
+# The following query is for the Barcharts -> Enrollment Tab.
+
 
 ############################### Start shinyServer Function ####################
 
@@ -111,10 +84,11 @@ shinyServer(function(input, output) {
     
   output$boxplotPlot1 <- renderPlotly({
     #View(dfbp3())
-    p <- ggplot(dfbp2()) + 
-      geom_boxplot(aes(x=Category, y=Sales, colour=State)) + 
+    p <- ggplot(dfbp2(), aes(x = Category, y = Sales)) + 
+      geom_boxplot() +
       ylim(0, input$boxSalesRange1[2]) +
-      theme(axis.text.x=element_text(angle=90, size=10, vjust=0.5))
+      theme(axis.text.x=element_text(angle=90, size=10, vjust=0.5)) +
+      theme_classic()
     ggplotly(p)
   })
   # End Box Plot Tab ___________________________________________________________
@@ -126,7 +100,7 @@ shinyServer(function(input, output) {
       query(
         data.world(propsfile = "www/.data.world"),
         dataset="hsfolkes/s-17-dv-final-project", type="sql",
-        query="select Librarians, Employees
+        query="select State, Librarians
         from states"
       ) # %>% View()
     }
@@ -142,7 +116,9 @@ shinyServer(function(input, output) {
   
   output$histogramPlot1 <- renderPlotly({p <- ggplot(dfh1()) +
       geom_histogram(aes(x=Librarians)) +
-      theme(axis.text.x=element_text(angle=90, size=10, vjust=0.5))
+      geom_dotplot(aes(x = Librarians, color = State)) +
+      theme(axis.text.x=element_text(angle=90, size=10, vjust=0.5)) +
+      theme_classic()
       ggplotly(p)
   })
   # End Histogram Tab ___________________________________________________________
@@ -171,7 +147,10 @@ shinyServer(function(input, output) {
   output$scatterPlot1 <- renderPlotly({p <- ggplot(dfsc1()) + 
       theme(axis.text.x=element_text(angle=90, size=16, vjust=0.5)) + 
       theme(axis.text.y=element_text(size=16, hjust=0.5)) +
-      geom_point(aes(x=visits_per_pop, y=median_fam_income, colour=State), size=2)
+      geom_point(aes(x=visits_per_pop, y=median_fam_income, colour=State), size=2) +
+      geom_smooth(aes(x=visits_per_pop, y=median_fam_income), method = lm) +
+      labs(x = "Visits per State Population", y = "Median Family Income") +
+      theme_classic()
       ggplotly(p)
   })
   # End Scatter Plots Tab ___________________________________________________________
@@ -183,7 +162,7 @@ shinyServer(function(input, output) {
         query(
             data.world(propsfile = "www/.data.world"),
             dataset="hsfolkes/s-17-dv-final-project/", type="sql",
-            query="select s.State, b.State, Category, Total_Operating_Revenue,
+            query="select s.State, b.State, Category, Total_Operating_Revenue, b.Cost,
             sum(Library_Visits) as sum_library,
             sum(Service_Population_Without_Duplicates) as sum_pop,
             case
@@ -207,8 +186,9 @@ shinyServer(function(input, output) {
   output$plot1 <- renderPlot({ggplot(dfct1()) + 
     theme(axis.text.x=element_text(angle=90, size=16, vjust=0.5)) + 
     theme(axis.text.y=element_text(size=16, hjust=0.5)) +
-    geom_text(aes(x=Category, y=State, label=sum_library), size=6) +
-    geom_tile(aes(x=Category, y=State, fill=kpi), alpha=0.50)
+    geom_text(aes(x=Category, y=State, label=Cost), size=6) +
+    geom_tile(aes(x=Category, y=State, fill=kpi), alpha=0.50) +
+    theme_classic()
   })
 # End Crosstab Tab ___________________________________________________________
 # Begin Barchart Tab ------------------------------------------------------------------
@@ -220,7 +200,7 @@ shinyServer(function(input, output) {
       tdf = query(
         data.world(propsfile = "www/.data.world"),
         dataset="hsfolkes/s-17-dv-final-project/", type="sql",
-        query="select State, Librarians, State_Population
+        query="select State, Librarians, State_Population, Young_Adult_Program_Audience, State_Code
                 from states
         where ? = 'All' or State in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         group by State",
@@ -229,45 +209,31 @@ shinyServer(function(input, output) {
     }
     else {
     }
+    
     # The following two lines mimic what can be done with Analytic SQL. Analytic SQL does not currently work in data.world.
-    tdf2 = tdf %>% group_by(State) %>% summarize(citizens_per_lib = mean(State_Population / Librarians))
-    dplyr::inner_join(tdf, tdf2, by = "State")
+    #tdf2 = tdf %>% group_by(State) %>% summarize(citizens_per_lib = mean(State_Population / Librarians))
+    #dplyr::inner_join(tdf, tdf2, by = "State")
 
   })
   output$barchartData1 <- renderDataTable({DT::datatable(dfbc1(),
                         rownames = FALSE,
                         extensions = list(Responsive = TRUE, FixedHeader = TRUE) )
   })
-  output$barchartData2 <- renderDataTable({DT::datatable(discounts,
+  output$barchartData2 <- renderDataTable({DT::datatable(df4(),
                         rownames = FALSE,
                         extensions = list(Responsive = TRUE, FixedHeader = TRUE) )
   })
-  output$barchartData3 <- renderDataTable({DT::datatable(sales,
-                        rownames = FALSE,
-                        extensions = list(Responsive = TRUE, FixedHeader = TRUE) )
-  })
-  output$barchartPlot1 <- renderPlot({ggplot(dfbc1(), aes(x=State, y=Librarians, fill = citizens_per_lib)) +
-      geom_col(stat = "identity")
+
+  output$barchartPlot1 <- renderPlot({ggplot(dfbc1(), aes(x=State, y=Young_Adult_Program_Audience)) +
+      #geom_col(fill = Young_Adult_Program_Audience) +
+      theme_light() 
+      #geom_line(aes(x = State_Code, y = mean(Young_Adult_Program_Audience)), colour = "black", size = 1.5)
   })
   
-  
-  output$barchartPlot2 <- renderPlotly({
-    # The following ggplotly code doesn't work when sumProfit is negative.
-    p <- ggplot(sales, aes(x=as.character(Customer_Id), y=sumProfit)) +
-      theme(axis.text.x=element_text(angle=0, size=12, vjust=0.5)) + 
-      theme(axis.text.y=element_text(size=12, hjust=0.5)) +
-      geom_bar(stat = "identity")
-    ggplotly(p)
-    # So, using plot_ly instead.
-    plot_ly(
-      data = sales,
-      x = ~as.character(Customer_Id),
-      y = ~sumProfit,
-      type = "bar"
-      ) %>%
-      layout(
-        xaxis = list(type="category", categoryorder="category ascending")
-      )
+  output$barchartPlot2 <- renderPlot({ggplot(df4(), aes(x = State, y = Young_Adult_Program_Audience)) +
+      geom_col(fill = (Young_Adult_Program_Audience > 40000)) +
+      theme_light() +
+      geom_line(aes(x = State_Code, y = mean(Young_Adult_Program_Audience)), colour = "black", size = 1.5)
   })
   # End Barchart Tab ___________________________________________________________
   
