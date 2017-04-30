@@ -34,7 +34,7 @@ dashboardPage(
                          hr(), # Add space after button.
                          DT::dataTableOutput("boxplotData1")
                 ),
-                tabPanel("Simple Box Plot", 
+                tabPanel("Box Plot", 
                          sliderInput("boxCostRange1", "Cost Range:",
                                      min = 0, max = 1000000000, 
                                      value = c(min(globals$Cost), max(globals$Cost))),
@@ -52,7 +52,7 @@ dashboardPage(
                          hr(), # Add space after button.
                          DT::dataTableOutput("histogramData1")
                 ),
-                tabPanel("Simple Histogram", plotlyOutput("histogramPlot1", height=1000))
+                tabPanel("Histogram", plotlyOutput("histogramPlot1", height=1000))
               )
       ),
       # End Histograms tab content.
@@ -67,7 +67,7 @@ dashboardPage(
                          hr(), # Add space after button.
                          DT::dataTableOutput("scatterData1")
                 ),
-                tabPanel("Simple Scatter Plot", plotlyOutput("scatterPlot1", height=1000))
+                tabPanel("Scatter Plot", plotlyOutput("scatterPlot1", height=1000))
               )
       ),
       # End Scatter Plots tab content.
