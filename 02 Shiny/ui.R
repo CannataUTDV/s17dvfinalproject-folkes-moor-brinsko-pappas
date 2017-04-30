@@ -36,7 +36,7 @@ dashboardPage(
                 ),
                 tabPanel("Simple Box Plot", 
                          sliderInput("boxCostRange1", "Cost Range:",
-                                     min = 0, max = 100000000, 
+                                     min = 0, max = 1000000000, 
                                      value = c(min(globals$Cost), max(globals$Cost))),
                          plotlyOutput("boxplotPlot1", height=500))
               )
@@ -85,7 +85,7 @@ dashboardPage(
               hr(), # Add space after button.
               DT::dataTableOutput("data1")
             ),
-            tabPanel("Crosstab", plotOutput("plot1", height=1000))
+            tabPanel("Crosstab","Text represents the cost per Category for each State, The KPI represents the Library Visits/Population according to the user inputed parameters.", plotOutput("plot1", height=1000))
           )
         ),
       # End Crosstab tab content.
@@ -95,19 +95,19 @@ dashboardPage(
           tabPanel("Data",  
              radioButtons("rb2", "Get Data From:",
                  c("SQL" = "SQL")),
-             uiOutput("regions2"), # See http://shiny.rstudio.com/gallery/dynamic-ui.html
+             uiOutput("regions2"),
              actionButton(inputId = "click2",  label = "Click Here for Data"),
              hr(), # Add space after button.
-             'Here is data for the "Barchart with Table Calculation" tab',
+             'Here is data for the "Librarians per State Population" tab',
              hr(),
              DT::dataTableOutput("barchartData1"),
              hr(),
-             'Here is data for the "High Sales Customers" tab',
+             'Here is data for the "Young Adult Program Audiences vs 9-12 Grade Enrollment" tab',
              hr(),
              DT::dataTableOutput("barchartData2")
           ),
-          tabPanel("Barchart with Table Calculation", "Black = Sum of Sales per Region, Red = Average Sum of Sales per Category, and  Blue = (Sum of Sales per Region - Average Sum of Sales per Category)", plotOutput("barchartPlot1", height=1500)),
-          tabPanel("High Sales Customers", plotOutput("barchartPlot2", height=700) )
+          tabPanel("Librarians per State Population", "x= State, y = Librarians, fill = State Population / Librarians", plotOutput("barchartPlot1", height=1500)),
+          tabPanel("Young Adult Program Audiences vs 9-12 Grade Enrollment", "Blue = Audience of over 40k, Red = Audience less than 40k, Black line = Audience Median", plotOutput("barchartPlot2", height=700) )
         )
       )
       # End Barchart tab content.

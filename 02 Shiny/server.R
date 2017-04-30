@@ -217,8 +217,8 @@ shinyServer(function(input, output) {
   df2 <-  query(
     data.world(propsfile = "www/.data.world"),
     dataset="hsfolkes/s-17-dv-final-project/", type="sql",
-    query="select State, Hours_Open, State_Code
-    from states"
+    query="select State, Young_Adult_Program_Audience, State_Code
+  from states"
   )  #%>% View()
   
   df3 <- query(
@@ -243,11 +243,13 @@ shinyServer(function(input, output) {
   
   
   output$barchartPlot2 <- renderPlot({ggplot(data = join) +
-      geom_col(aes(x = State, y = Hours_Open, fill = (Hours_Open > 1000000))) +
-      theme_classic() +
-      #  scale_y_continuous(labels = comma) +
-      geom_line(aes(x = State_Code, y = Enrollment_9to12), colour = "black", size = 1.5)
+      geom_col(aes(x = State, y = Young_Adult_Program_Audience, fill = (Young_Adult_Program_Audience > 40000))) +
+      theme_light() +
+      scale_y_continuous(labels = scales::comma) +
+      labs(x = "State", y = "Adult Program Audience") +
+      geom_line(aes(x = State_Code, y = mean(Young_Adult_Program_Audience)), colour = "black", size = 1.5)
   })
+  
   
   # End Barchart Tab ___________________________________________________________
   
