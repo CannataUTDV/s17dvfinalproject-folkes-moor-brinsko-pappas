@@ -1,0 +1,11 @@
+name: finalproject
+title: FinalProject
+account: hbrinsko
+server: shinyapps.io
+appId: 176667
+bundleId: 809801
+url: https://hbrinsko.shinyapps.io/finalproject/
+when: 1493573702.14649
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: www/SuperStoreOrders.csv

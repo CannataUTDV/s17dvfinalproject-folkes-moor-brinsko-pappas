@@ -36,15 +36,9 @@ dashboardPage(
                          DT::dataTableOutput("boxplotData1")
                 ),
                 tabPanel("Simple Box Plot", 
-                         sliderInput("boxSalesRange1", "Sales Range:", # See https://shiny.rstudio.com/articles/sliders.html
-                                     min = min(globals$Sales), max = max(globals$Sales), 
+                         sliderInput("boxSalesRange1", "Sales Range:",
+                                     min = 0, max = 100000000, 
                                      value = c(min(globals$Sales), max(globals$Sales))),
-                         sliderInput("range5a", "Loop through Quarters:", 
-                                     min(globals$Order_Date), 
-                                     max(globals$Order_Date) + .75, 
-                                     max(globals$Order_Date), 
-                                     step = 0.25,
-                                     animate=animationOptions(interval=2000, loop=T)),
                          plotlyOutput("boxplotPlot1", height=500))
               )
       ),
@@ -88,9 +82,9 @@ dashboardPage(
                 c("SQL" = "SQL",
                   "CSV" = "CSV"), inline=T),
               sliderInput("KPI1", "KPI_Low:", 
-                          min = 0, max = .1,  value = .1),
+                          min = 0, max = 3.5,  value = .1),
               sliderInput("KPI2", "KPI_Medium:", 
-                          min = .1, max = .2,  value = .2),
+                          min = 3.5, max = 5,  value = .2),
               actionButton(inputId = "click1",  label = "To get data, click here"),
               hr(), # Add space after button.
               DT::dataTableOutput("data1")
@@ -113,16 +107,11 @@ dashboardPage(
              hr(),
              DT::dataTableOutput("barchartData1"),
              hr(),
-             'Here is data for the "High Discount Orders" tab',
-             hr(),
-             DT::dataTableOutput("barchartData2"),
-             hr(),
              'Here is data for the "High Sales Customers" tab',
              hr(),
              DT::dataTableOutput("barchartData3")
           ),
           tabPanel("Barchart with Table Calculation", "Black = Sum of Sales per Region, Red = Average Sum of Sales per Category, and  Blue = (Sum of Sales per Region - Average Sum of Sales per Category)", plotOutput("barchartPlot1", height=1500)),
-          tabPanel("High Discount Orders", leafletOutput("barchartMap1"), height=900 ),
           tabPanel("High Sales Customers", plotlyOutput("barchartPlot2", height=700) )
         )
       )

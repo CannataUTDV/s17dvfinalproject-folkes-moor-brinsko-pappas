@@ -10,6 +10,23 @@ require(leaflet)
 require(plotly)
 require(lubridate)
 
+online0 = TRUE
+
+# The following query is for the select list in the Boxplots -> Simple Boxplot tab, and Barcharts -> Barchart with Table Calculation tab.
+if(online0) {
+  regions = query(
+    data.world(propsfile = "www/.data.world"),
+    dataset="hsfolkes/s-17-dv-final-project", type="sql",
+    query="select distinct State as R
+  from states
+    order by 1"
+  ) # %>% View()
+} else {
+}
+region_list <- as.list(regions$R)
+region_list <- append(list("All" = "All"), region_list)
+region_list5 <- region_list
+
 # The following query is for the Barcharts -> High Sales Customers tab data.
 if(online0) {
   # Step 1:
@@ -38,25 +55,162 @@ if(online0) {
     ) # %>% View()
   # View(sales)
 } else {
-  print("Getting discounts from csv")
-  file_path = "www/SuperStoreOrders.csv"
-  df <- readr::read_csv(file_path) 
-  # Step 1
-  highDiscounts <- df %>% dplyr::group_by(Order_Id) %>% dplyr::summarize(sumDiscount = sum(Discount)) %>% dplyr::filter(sumDiscount >= .3)
-  # View(highDiscounts)
-  # Step 2
-  sales <- df %>% dplyr::filter(Order_Id %in% highDiscounts$Order_Id) %>% dplyr::select(Customer_Name, Customer_Id, City, State, Order_Id, Profit) %>% dplyr::group_by(Customer_Name, Customer_Id, City, State, Order_Id) %>% dplyr::summarise(sumProfit = sum(Profit))
-  # View(sales)
 }
 
 ############################### Start shinyServer Function ####################
 
-shinyServer(function(input, output) {
+shinyServer(function(input, output) {   
+  # These widgets are for the Box Plots tab.
+  online5 = reactive({input$rb5})
+  output$boxplotRegions <- renderUI({selectInput("selectedBoxplotRegions", "Choose States:",
+                                                 region_list5, multiple = TRUE, selected='All') })
+  
+  # These widgets are for the Histogram tab.
+  online4 = reactive({input$rb4})
+  
+  # These widgets are for the Scatter Plots tab.
+  online3 = reactive({input$rb3})
+  
+  # These widgets are for the Crosstabs tab.
+  online1 = reactive({input$rb1})
+  KPI_Low = reactive({input$KPI1})     
+  KPI_Medium = reactive({input$KPI2})
   
   # These widgets are for the Barcharts tab.
   online2 = reactive({input$rb2})
-  output$regions2 <- renderUI({selectInput("selectedRegions", "Choose Regions:", region_list, multiple = TRUE, selected='All') })
+  output$regions2 <- renderUI({selectInput("selectedRegions", "Choose States:", region_list, multiple = TRUE, selected='All') })
   
+  # Begin Box Plot Tab ------------------------------------------------------------------
+  dfbp1 <- eventReactive(input$click5, {
+    if(input$selectedBoxplotRegions == 'All') region_list5 <- input$selectedBoxplotRegions
+    else region_list5 <- append(list("Skip" = "Skip"), input$selectedBoxplotRegions)
+    if(online5() == "SQL") {
+      print("Getting from data.world")
+      df <- query(
+        data.world(propsfile = "www/.data.world"),
+        dataset="hsfolkes/s-17-dv-final-project/", type="sql",
+        query="select Category, State, Cost as Sales
+        from states_boxplot
+        where (? = 'All' or State in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?))",
+        queryParameters = region_list5 ) # %>% View()
+    }
+    else {
+    }
+    })
+  
+  output$boxplotData1 <- renderDataTable({DT::datatable(dfbp1(), rownames = FALSE,
+                                                extensions = list(Responsive = TRUE, 
+                                                FixedHeader = TRUE)
+  )
+  })
+  
+  dfbp2 <- eventReactive(c(input$click5, input$boxSalesRange1), {
+    dfbp1() %>% dplyr::filter(Sales >= input$boxSalesRange1[1] & Sales <= input$boxSalesRange1[2]) # %>% View()
+  })
+  
+    
+  output$boxplotPlot1 <- renderPlotly({
+    #View(dfbp3())
+    p <- ggplot(dfbp2()) + 
+      geom_boxplot(aes(x=Category, y=Sales, colour=State)) + 
+      ylim(0, input$boxSalesRange1[2]) +
+      theme(axis.text.x=element_text(angle=90, size=10, vjust=0.5))
+    ggplotly(p)
+  })
+  # End Box Plot Tab ___________________________________________________________
+  
+  # Begin Histgram Tab ------------------------------------------------------------------
+  dfh1 <- eventReactive(input$click4, {
+    if(online4() == "SQL") {
+      print("Getting from data.world")
+      query(
+        data.world(propsfile = "www/.data.world"),
+        dataset="hsfolkes/s-17-dv-final-project", type="sql",
+        query="select Librarians, Employees
+        from states"
+      ) # %>% View()
+    }
+    else {
+    }
+    })
+  
+  output$histogramData1 <- renderDataTable({DT::datatable(dfh1(), rownames = FALSE,
+                                                  extensions = list(Responsive = TRUE, 
+                                                  FixedHeader = TRUE)
+  )
+  })
+  
+  output$histogramPlot1 <- renderPlotly({p <- ggplot(dfh1()) +
+      geom_histogram(aes(x=Librarians)) +
+      theme(axis.text.x=element_text(angle=90, size=10, vjust=0.5))
+      ggplotly(p)
+  })
+  # End Histogram Tab ___________________________________________________________
+  
+  # Begin Scatter Plots Tab ------------------------------------------------------------------
+  dfsc1 <- eventReactive(input$click3, {
+    if(online3() == "SQL") {
+      print("Getting from data.world")
+      query(
+        data.world(propsfile = "www/.data.world"),
+        dataset="hsfolkes/s-17-dv-final-project", type="sql",
+        query="select s.State, (Library_Visits / State_Population) as visits_per_pop, B19119_001 as median_fam_income,
+        m.State
+        from states s
+        join `Median Family Income` m on m.State = s.State"
+      ) # %>% View()
+    }
+    else {
+    }
+  })
+  output$scatterData1 <- renderDataTable({DT::datatable(dfsc1(), rownames = FALSE,
+                                                 extensions = list(Responsive = TRUE, 
+                                                 FixedHeader = TRUE)
+  )
+  })
+  output$scatterPlot1 <- renderPlotly({p <- ggplot(dfsc1()) + 
+      theme(axis.text.x=element_text(angle=90, size=16, vjust=0.5)) + 
+      theme(axis.text.y=element_text(size=16, hjust=0.5)) +
+      geom_point(aes(x=visits_per_pop, y=median_fam_income, colour=State), size=2)
+      ggplotly(p)
+  })
+  # End Scatter Plots Tab ___________________________________________________________
+  
+# Begin Crosstab Tab ------------------------------------------------------------------
+  dfct1 <- eventReactive(input$click1, {
+      if(online1() == "SQL") {
+        print("Getting from data.world")
+        query(
+            data.world(propsfile = "www/.data.world"),
+            dataset="hsfolkes/s-17-dv-final-project/", type="sql",
+            query="select s.State, b.State, Category, Total_Operating_Revenue,
+            sum(Library_Visits) as sum_library,
+            sum(Service_Population_Without_Duplicates) as sum_pop,
+            case
+            when sum(Library_Visits) / sum(Service_Population_Without_Duplicates) < ? then 'Low'
+            when  sum(Library_Visits) / sum(Service_Population_Without_Duplicates) < ? then 'Medium'
+            else 'High'
+            end as kpi
+            
+            from states s join states_boxplot b on s.State = b.State
+            group by s.State, Category",
+            queryParameters = list(KPI_Low(), KPI_Medium())
+          ) # %>% View()
+      }
+      else {
+      }
+  })
+  output$data1 <- renderDataTable({DT::datatable(dfct1(), rownames = FALSE,
+                                extensions = list(Responsive = TRUE, FixedHeader = TRUE)
+  )
+  })
+  output$plot1 <- renderPlot({ggplot(dfct1()) + 
+    theme(axis.text.x=element_text(angle=90, size=16, vjust=0.5)) + 
+    theme(axis.text.y=element_text(size=16, hjust=0.5)) +
+    geom_text(aes(x=Category, y=State, label=sum_library), size=6) +
+    geom_tile(aes(x=Category, y=State, fill=kpi), alpha=0.50)
+  })
+# End Crosstab Tab ___________________________________________________________
 # Begin Barchart Tab ------------------------------------------------------------------
   dfbc1 <- eventReactive(input$click2, {
     if(input$selectedRegions == 'All') region_list <- input$selectedRegions
@@ -65,44 +219,39 @@ shinyServer(function(input, output) {
       print("Getting from data.world")
       tdf = query(
         data.world(propsfile = "www/.data.world"),
-        dataset="cannata/superstoreorders", type="sql",
-        query="select Category, Region, sum(Sales) sum_sales
-                from SuperStoreOrders
-                where ? = 'All' or Region in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                group by Category, Region",
+        dataset="hsfolkes/s-17-dv-final-project/", type="sql",
+        query="select State, Librarians, State_Population
+                from states
+        where ? = 'All' or State in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        group by State",
         queryParameters = region_list
       ) # %>% View()
     }
-    else {    }
+    else {
+    }
     # The following two lines mimic what can be done with Analytic SQL. Analytic SQL does not currently work in data.world.
-    tdf2 = tdf %>% group_by(Category) %>% summarize(window_avg_sales = mean(sum_sales))
-    dplyr::inner_join(tdf, tdf2, by = "Category")
+    tdf2 = tdf %>% group_by(State) %>% summarize(citizens_per_lib = mean(State_Population / Librarians))
+    dplyr::inner_join(tdf, tdf2, by = "State")
 
   })
   output$barchartData1 <- renderDataTable({DT::datatable(dfbc1(),
                         rownames = FALSE,
                         extensions = list(Responsive = TRUE, FixedHeader = TRUE) )
   })
-
+  output$barchartData2 <- renderDataTable({DT::datatable(discounts,
+                        rownames = FALSE,
+                        extensions = list(Responsive = TRUE, FixedHeader = TRUE) )
+  })
   output$barchartData3 <- renderDataTable({DT::datatable(sales,
                         rownames = FALSE,
                         extensions = list(Responsive = TRUE, FixedHeader = TRUE) )
   })
-  output$barchartPlot1 <- renderPlot({ggplot(dfbc1(), aes(x=Region, y=sum_sales)) +
-      scale_y_continuous(labels = scales::comma) + # no scientific notation
-      theme(axis.text.x=element_text(angle=0, size=12, vjust=0.5)) + 
-      theme(axis.text.y=element_text(size=12, hjust=0.5)) +
-      geom_bar(stat = "identity") + 
-      facet_wrap(~Category, ncol=1) + 
-      coord_flip() + 
-      # Add sum_sales, and (sum_sales - window_avg_sales) label.
-      geom_text(mapping=aes(x=Region, y=sum_sales, label=round(sum_sales)),colour="black", hjust=-.5) +
-      geom_text(mapping=aes(x=Region, y=sum_sales, label=round(sum_sales - window_avg_sales)),colour="blue", hjust=-2) +
-      # Add reference line with a label.
-      geom_hline(aes(yintercept = round(window_avg_sales)), color="red") +
-      geom_text(aes( -1, window_avg_sales, label = window_avg_sales, vjust = -.5, hjust = -.25), color="red")
+  output$barchartPlot1 <- renderPlot({ggplot(dfbc1(), aes(x=State, y=Librarians, fill = citizens_per_lib)) +
+      geom_col(stat = "identity")
   })
-    output$barchartPlot2 <- renderPlotly({
+  
+  
+  output$barchartPlot2 <- renderPlotly({
     # The following ggplotly code doesn't work when sumProfit is negative.
     p <- ggplot(sales, aes(x=as.character(Customer_Id), y=sumProfit)) +
       theme(axis.text.x=element_text(angle=0, size=12, vjust=0.5)) + 
