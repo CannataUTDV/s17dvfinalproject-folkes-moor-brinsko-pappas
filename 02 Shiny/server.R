@@ -84,8 +84,9 @@ shinyServer(function(input, output) {
     #View(dfbp3())
     p <- ggplot(dfbp2(), aes(x = Category, y = Cost)) + 
       geom_boxplot() +
-      ylim(0, input$boxCostRange1[2]) +
+      ylim(input$boxCostRange1[1], input$boxCostRange1[2]) +
       theme(axis.text.x=element_text(angle=90, size=10, vjust=0.5)) +
+      scale_y_continuous(labels = scales::comma) +
       theme_classic()
     ggplotly(p)
   })
@@ -116,6 +117,7 @@ shinyServer(function(input, output) {
       geom_histogram(aes(x=Librarians)) +
       geom_dotplot(aes(x = Librarians, color = State)) +
       theme(axis.text.x=element_text(angle=90, size=10, vjust=0.5)) +
+      labs(x = "Number of Librarians", y = "Number of States with Specified Number of Librarians") +
       theme_classic()
       ggplotly(p)
   })
@@ -147,7 +149,7 @@ shinyServer(function(input, output) {
       theme(axis.text.y=element_text(size=16, hjust=0.5)) +
       geom_point(aes(x=visits_per_pop, y=median_fam_income, colour=State), size=2) +
       geom_smooth(aes(x=visits_per_pop, y=median_fam_income), method = lm) +
-      labs(x = "Visits per State Population", y = "Median Family Income") +
+      labs(x = "Ratio of Library Visits to State Population", y = "Median Family Income") +
       theme_classic()
       ggplotly(p)
   })

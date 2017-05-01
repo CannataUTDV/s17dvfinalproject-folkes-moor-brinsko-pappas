@@ -5,11 +5,12 @@ require(DT)
 require(leaflet)
 require(plotly)
 
-dashboardPage(
-  dashboardHeader(
+dashboardPage(skin = "black",
+  dashboardHeader(title = "The Library System of the United States", titleWidth = 400
   ),
   dashboardSidebar(
     sidebarMenu(
+      menuItem("Home", tabName = "home", icon = icon("dashboard")),
       menuItem("Box Plots", tabName = "boxplot", icon = icon("dashboard")),
       menuItem("Histograms", tabName = "histogram", icon = icon("dashboard")),
       menuItem("Scatter Plots", tabName = "scatter", icon = icon("dashboard")),
@@ -23,20 +24,29 @@ dashboardPage(
                ".shiny-output-error:before { visibility: hidden; }"
     ),    
     tabItems(
+      # Begin Home Page tab content.
+      tabItem(tabName = "home", 
+              h1('Welcome to our Shiny application!'),
+              img(src='books_image.png')
+      ),
+      
       # Begin Box Plots tab content.
       tabItem(tabName = "boxplot",
               tabsetPanel(
                 tabPanel("Data",  
                          radioButtons("rb5", "Get Data From:",
                                       c("SQL" = "SQL")),
-                         uiOutput("boxplotRegions"), # See http://shiny.rstudio.com/gallery/dynamic-ui.html,
+                         uiOutput("boxplotRegions"),
                          actionButton(inputId = "click5",  label = "Click Here for Data"),
                          hr(), # Add space after button.
-                         DT::dataTableOutput("boxplotData1")
+                         DT::dataTableOutput("boxplotData1"),
+                         h3('Here is an explanation of a simple boxplot.'),
+                         img(src='boxplot_explanation.png')
                 ),
-                tabPanel("Box Plot", 
+                tabPanel("Box Plot",
+                         h4('This boxplot shows the minimum, maximum, first quartile, third quartile, and median of the "Cost" values for each expenditure, including Digital Collection Expenditures, Print Collection Expenditures, Other Expenditures, and Total Expenditures. The user may select the "Cost Range" that they would like to see.'),
                          sliderInput("boxCostRange1", "Cost Range:",
-                                     min = 0, max = 1000000000, 
+                                     min = 0, max = 100000000, 
                                      value = c(min(globals$Cost), max(globals$Cost))),
                          plotlyOutput("boxplotPlot1", height=500))
               )
@@ -52,7 +62,8 @@ dashboardPage(
                          hr(), # Add space after button.
                          DT::dataTableOutput("histogramData1")
                 ),
-                tabPanel("Histogram", plotlyOutput("histogramPlot1", height=1000))
+                tabPanel("Simple Histogram",
+                         plotlyOutput("histogramPlot1", height=1000))
               )
       ),
       # End Histograms tab content.

@@ -1,5 +1,5 @@
 ---
-title: "Library Data and Census Data"
+title: "The Library System of the United States"
 subtitle: "Data Visualization -- Final Project"
 author: "Hannah Brinsko, Haley Folkes, Sarah Moor, and Kevin Pappas"
 date: "Wednesday, May 3, 2017"
@@ -10,7 +10,10 @@ output:
     toc: yes
 ---
 
+![\n](books_image.png)
+
 ## Session Information
+<a href="#top">Back To Top</a>
 
 ```{r sessionInfo}
 sessionInfo(package=NULL)
