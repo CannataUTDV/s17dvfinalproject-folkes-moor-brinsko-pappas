@@ -177,7 +177,9 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#session-information">Session Information</a></li>
+<li><a href="#important-resources-and-links">Important Resources and Links</a></li>
 <li><a href="#summary-of-library-data">Summary of Library Data</a></li>
+<li><a href="#summary-of-subsets-of-library-data">Summary of Subsets of Library Data</a></li>
 <li><a href="#summary-of-census-data">Summary of Census Data</a></li>
 <li><a href="#the-tableau-visualizations">The Tableau Visualizations</a></li>
 <li><a href="#the-shiny-visualizations">The Shiny Visualizations</a></li>
@@ -218,10 +220,16 @@ loaded via a namespace (and not attached):
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
+<div id="important-resources-and-links" class="section level2">
+<h2>Important Resources and Links</h2>
+<p><a href="#top">Back To Top</a></p>
+<p>To see our GitHub repository, click <a href="https://github.com/CannataUTDV/s17dvfinalproject-folkes-moor-brinsko-pappas">here</a>.</p>
+<p>To see our Shiny application, click <a href="https://hbrinsko.shinyapps.io/finalproject">here</a>.</p>
+</div>
 <div id="summary-of-library-data" class="section level2">
 <h2>Summary of Library Data</h2>
 <p><a href="#top">Back To Top</a></p>
-<p>This data set is from kaggle. It provides detailed information about libraries in each state in the United States.</p>
+<p>This data set is from kaggle. You can find this data <a href="https://www.kaggle.com/imls/public-libraries">here</a>. It provides detailed information about libraries in each state in the United States.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShzdGF0ZXMpXG5gYGAifQ== -->
@@ -358,9 +366,130 @@ loaded via a namespace (and not attached):
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
+<div id="summary-of-subsets-of-library-data" class="section level2">
+<h2>Summary of Subsets of Library Data</h2>
+<p><a href="#top">Back To Top</a></p>
+<p>This data is a subset of the library data that was re-configured to make Digital Cost, Other Cost, Print Cost, and Total Cost to be a subset of a larger category – Collection Cost Type. This way, the data could be easily grouped on the same visualization.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShzdGF0ZXNfYm94cGxvdClcbmBgYCJ9 -->
+<pre class="r"><code>summary(states_boxplot)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgIFN0YXRlICAgICAgICAgICAgIENhdGVnb3J5ICAgICAgICAgICAgICBDb3N0ICAgICAgICAgIFxuIExlbmd0aDoyMDQgICAgICAgICBMZW5ndGg6MjA0ICAgICAgICAgTWluLiAgIDogICAgNzY3MzEgIFxuIENsYXNzIDpjaGFyYWN0ZXIgICBDbGFzcyA6Y2hhcmFjdGVyICAgMXN0IFF1LjogIDI0MjkwNzYgIFxuIE1vZGUgIDpjaGFyYWN0ZXIgICBNb2RlICA6Y2hhcmFjdGVyICAgTWVkaWFuIDogIDU4NDM1OTggIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTWVhbiAgIDogMTI1MDMyNjUgIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgM3JkIFF1LjogMTU2ODU1OTcgIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTWF4LiAgIDoxMTI3MjkwNzcgIFxuIn0= -->
+<pre><code>    State             Category              Cost          
+ Length:204         Length:204         Min.   :    76731  
+ Class :character   Class :character   1st Qu.:  2429076  
+ Mode  :character   Mode  :character   Median :  5843598  
+                                       Mean   : 12503265  
+                                       3rd Qu.: 15685597  
+                                       Max.   :112729077  </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>This data is a subset of the library data that was re-configured to make Children’s Programs, Young Adult Programs, and Adult Programs to be a subset of a larger category – Program Type. This way, the data could be easily grouped on the same visualization.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShQcm9ncmFtX0NhdGVnb3J5KVxuYGBgIn0= -->
+<pre class="r"><code>summary(Program_Category)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgIFN0YXRlICAgICAgICAgICBQcm9ncmFtX0NhdGVnb3J5ICAgIE51bV9Qcm9ncmFtcyAgIFxuIExlbmd0aDoxNTMgICAgICAgICBMZW5ndGg6MTUzICAgICAgICAgTWluLiAgIDogIDExNzIgIFxuIENsYXNzIDpjaGFyYWN0ZXIgICBDbGFzcyA6Y2hhcmFjdGVyICAgMXN0IFF1LjogIDczODEgIFxuIE1vZGUgIDpjaGFyYWN0ZXIgICBNb2RlICA6Y2hhcmFjdGVyICAgTWVkaWFuIDogMjIwNzAgIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTWVhbiAgIDogNDg5MTcgIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgM3JkIFF1LjogNjIxMjAgIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTWF4LiAgIDo1MDAwMDUgIFxuIn0= -->
+<pre><code>    State           Program_Category    Num_Programs   
+ Length:153         Length:153         Min.   :  1172  
+ Class :character   Class :character   1st Qu.:  7381  
+ Mode  :character   Mode  :character   Median : 22070  
+                                       Mean   : 48917  
+                                       3rd Qu.: 62120  
+                                       Max.   :500005  </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
 <div id="summary-of-census-data" class="section level2">
 <h2>Summary of Census Data</h2>
 <p><a href="#top">Back To Top</a></p>
+<p>This data set is from the census data on data.world. You can find this data <a href="https://data.world/uscensusbureau/acs-2015-5-e-employmentstatus/file/USA_All_States.csv">here</a>. It provides the number of employed persons in each state.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShjZW5zdXNfZW1wbG95bWVudClcbmBgYCJ9 -->
+<pre class="r"><code>summary(census_employment)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgIFN0YXRlICAgICAgICAgICAgICBFbXBsb3llZCAgICAgICBcbiBMZW5ndGg6NTIgICAgICAgICAgTWluLiAgIDogIDQ1NjY0MCAgXG4gQ2xhc3MgOmNoYXJhY3RlciAgIDFzdCBRdS46IDEzOTg3NTkgIFxuIE1vZGUgIDpjaGFyYWN0ZXIgICBNZWRpYW4gOiAzMzM1Mzg0ICBcbiAgICAgICAgICAgICAgICAgICAgTWVhbiAgIDogNDg4NjY0NCAgXG4gICAgICAgICAgICAgICAgICAgIDNyZCBRdS46IDU1MDE3ODYgIFxuICAgICAgICAgICAgICAgICAgICBNYXguICAgOjMwMzEyNDI5ICBcbiJ9 -->
+<pre><code>    State              Employed       
+ Length:52          Min.   :  456640  
+ Class :character   1st Qu.: 1398759  
+ Mode  :character   Median : 3335384  
+                    Mean   : 4886644  
+                    3rd Qu.: 5501786  
+                    Max.   :30312429  </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>This data set is from the census data on data.world. You can find this data <a href="https://data.world/uscensusbureau/acs-2015-5-e-schoolenrollment/file/USA_All_States.csv">here</a>. It provides the number of people enrolled in high school in each state.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShjZW5zdXNfZW5yb2xsbWVudClcbmBgYCJ9 -->
+<pre class="r"><code>summary(census_enrollment)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgIFN0YXRlICAgICAgICAgICBFbnJvbGxtZW50Xzl0bzEyIFxuIExlbmd0aDo1MiAgICAgICAgICBNaW4uICAgOiAgMjQxOTggIFxuIENsYXNzIDpjaGFyYWN0ZXIgICAxc3QgUXUuOiAgOTE4NjAgIFxuIE1vZGUgIDpjaGFyYWN0ZXIgICBNZWRpYW4gOiAyMTU3MTIgIFxuICAgICAgICAgICAgICAgICAgICBNZWFuICAgOiAzMzEwMzEgIFxuICAgICAgICAgICAgICAgICAgICAzcmQgUXUuOiAzNjI5OTIgIFxuICAgICAgICAgICAgICAgICAgICBNYXguICAgOjIyMTYxNzUgIFxuIn0= -->
+<pre><code>    State           Enrollment_9to12 
+ Length:52          Min.   :  24198  
+ Class :character   1st Qu.:  91860  
+ Mode  :character   Median : 215712  
+                    Mean   : 331031  
+                    3rd Qu.: 362992  
+                    Max.   :2216175  </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>This data set is from the census data on data.world. You can find this data <a href="https://data.world/uscensusbureau/acs-2015-5-e-income/USA_All_States.csv">here</a>. It provides the median family income in each state.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShNZWRpYW5fRmFtaWx5X0luY29tZSlcbmBgYCJ9 -->
+<pre class="r"><code>summary(Median_Family_Income)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgIFN0YXRlICAgICAgICAgICAgIEIxOTExOV8wMDEgICBcbiBMZW5ndGg6NTIgICAgICAgICAgTWluLiAgIDoyMjk3NiAgXG4gQ2xhc3MgOmNoYXJhY3RlciAgIDFzdCBRdS46NTc5ODYgIFxuIE1vZGUgIDpjaGFyYWN0ZXIgICBNZWRpYW4gOjY1ODEzICBcbiAgICAgICAgICAgICAgICAgICAgTWVhbiAgIDo2NjU1MSAgXG4gICAgICAgICAgICAgICAgICAgIDNyZCBRdS46NzQwMzAgIFxuICAgICAgICAgICAgICAgICAgICBNYXguICAgOjkwMDg5ICBcbiJ9 -->
+<pre><code>    State             B19119_001   
+ Length:52          Min.   :22976  
+ Class :character   1st Qu.:57986  
+ Mode  :character   Median :65813  
+                    Mean   :66551  
+                    3rd Qu.:74030  
+                    Max.   :90089  </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>This data set is from Current Results. You can find this data <a href="https://www.currentresults.com/Weather/US/average-annual-state-temperatures.php">here</a>. It provides the average temperature in each state.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShTdGF0ZV9UZW1wX2FuZF9SYWluKVxuYGBgIn0= -->
+<pre class="r"><code>summary(State_Temp_and_Rain)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgIFN0YXRlICAgICAgICAgICBBdmVyYWdlIFRlbXBlcmF0dXJlIFRvdGFsIEhvdXJzIG9mIFN1bmxpZ2h0ICAgQ2xlYXIgRGF5cyAgICBcbiBMZW5ndGg6NTAgICAgICAgICAgTWluLiAgIDoyNi42MCAgICAgICBNaW4uICAgOjIwNjEgICAgICAgICAgICBNaW4uICAgOiA1OC4wMCAgXG4gQ2xhc3MgOmNoYXJhY3RlciAgIDFzdCBRdS46NDUuMjUgICAgICAgMXN0IFF1LjoyNTE0ICAgICAgICAgICAgMXN0IFF1LjogODkuMjUgIFxuIE1vZGUgIDpjaGFyYWN0ZXIgICBNZWRpYW4gOjUxLjIwICAgICAgIE1lZGlhbiA6MjY5MCAgICAgICAgICAgIE1lZGlhbiA6MTAwLjUwICBcbiAgICAgICAgICAgICAgICAgICAgTWVhbiAgIDo1MS45NCAgICAgICBNZWFuICAgOjI3MjEgICAgICAgICAgICBNZWFuICAgOjEwMy4yNiAgXG4gICAgICAgICAgICAgICAgICAgIDNyZCBRdS46NTguNjUgICAgICAgM3JkIFF1LjoyOTI0ICAgICAgICAgICAgM3JkIFF1LjoxMTUuMDAgIFxuICAgICAgICAgICAgICAgICAgICBNYXguICAgOjcwLjcwICAgICAgIE1heC4gICA6MzgwNiAgICAgICAgICAgIE1heC4gICA6MTkzLjAwICBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBOQSdzICAgOjMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4ifQ== -->
+<pre><code>    State           Average Temperature Total Hours of Sunlight   Clear Days    
+ Length:50          Min.   :26.60       Min.   :2061            Min.   : 58.00  
+ Class :character   1st Qu.:45.25       1st Qu.:2514            1st Qu.: 89.25  
+ Mode  :character   Median :51.20       Median :2690            Median :100.50  
+                    Mean   :51.94       Mean   :2721            Mean   :103.26  
+                    3rd Qu.:58.65       3rd Qu.:2924            3rd Qu.:115.00  
+                    Max.   :70.70       Max.   :3806            Max.   :193.00  
+                                        NA's   :3                               </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>This data set is from Researcher Tools. You can find this data <a href="http://researchertools.blogspot.com/2012/09/excel-file-with-us-states-abbreviations.html">here</a>. It provides useful connections between state names, state codes, and regions.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShzdGF0ZXNfd2l0aF9yZWdpb25zKVxuYGBgIn0= -->
+<pre class="r"><code>summary(states_with_regions)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgIFN0YXRlICAgICAgICAgICAgU3RhdGUgQ29kZSAgICAgICAgICAgUmVnaW9uICAgICAgICAgICBTdWItUmVnaW9uICAgICAgIFxuIExlbmd0aDo1MCAgICAgICAgICBMZW5ndGg6NTAgICAgICAgICAgTGVuZ3RoOjUwICAgICAgICAgIExlbmd0aDo1MCAgICAgICAgIFxuIENsYXNzIDpjaGFyYWN0ZXIgICBDbGFzcyA6Y2hhcmFjdGVyICAgQ2xhc3MgOmNoYXJhY3RlciAgIENsYXNzIDpjaGFyYWN0ZXIgIFxuIE1vZGUgIDpjaGFyYWN0ZXIgICBNb2RlICA6Y2hhcmFjdGVyICAgTW9kZSAgOmNoYXJhY3RlciAgIE1vZGUgIDpjaGFyYWN0ZXIgIFxuIn0= -->
+<pre><code>    State            State Code           Region           Sub-Region       
+ Length:50          Length:50          Length:50          Length:50         
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 </div>
 <div id="the-tableau-visualizations" class="section level2">
 <h2>The Tableau Visualizations</h2>
@@ -372,7 +501,7 @@ loaded via a namespace (and not attached):
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlRoZSBMaWJyYXJ5IFN5c3RlbSBvZiB0aGUgVW5pdGVkIFN0YXRlcyINCnN1YnRpdGxlOiAiRGF0YSBWaXN1YWxpemF0aW9uIC0tIEZpbmFsIFByb2plY3QiDQphdXRob3I6ICJIYW5uYWggQnJpbnNrbywgSGFsZXkgRm9sa2VzLCBTYXJhaCBNb29yLCBhbmQgS2V2aW4gUGFwcGFzIg0KZGF0ZTogIldlZG5lc2RheSwgTWF5IDMsIDIwMTciDQpvdXRwdXQ6DQogIGh0bWxfZG9jdW1lbnQ6DQogICAgdG9jOiB5ZXMNCiAgaHRtbF9ub3RlYm9vazoNCiAgICB0b2M6IHllcw0KLS0tDQoNCiFbXG5dKGJvb2tzX2ltYWdlLnBuZykNCg0KIyMgU2Vzc2lvbiBJbmZvcm1hdGlvbg0KPGEgaHJlZj0iI3RvcCI+QmFjayBUbyBUb3A8L2E+DQoNCmBgYHtyIHNlc3Npb25JbmZvfQ0Kc2Vzc2lvbkluZm8ocGFja2FnZT1OVUxMKQ0KYGBgDQoNCiMjIFN1bW1hcnkgb2YgTGlicmFyeSBEYXRhDQo8YSBocmVmPSIjdG9wIj5CYWNrIFRvIFRvcDwvYT4NCg0KVGhpcyBkYXRhIHNldCBpcyBmcm9tIGthZ2dsZS4gSXQgcHJvdmlkZXMgZGV0YWlsZWQgaW5mb3JtYXRpb24gYWJvdXQgbGlicmFyaWVzIGluIGVhY2ggc3RhdGUgaW4gdGhlIFVuaXRlZCBTdGF0ZXMuDQoNCmBgYHtyIHN0YXRlc30NCnN1bW1hcnkoc3RhdGVzKQ0KYGBgDQoNCiMjIFN1bW1hcnkgb2YgQ2Vuc3VzIERhdGENCjxhIGhyZWY9IiN0b3AiPkJhY2sgVG8gVG9wPC9hPg0KDQojIyBUaGUgVGFibGVhdSBWaXN1YWxpemF0aW9ucw0KPGEgaHJlZj0iI3RvcCI+QmFjayBUbyBUb3A8L2E+DQoNCiMjIFRoZSBTaGlueSBWaXN1YWxpemF0aW9ucw0KPGEgaHJlZj0iI3RvcCI+QmFjayBUbyBUb3A8L2E+DQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlRoZSBMaWJyYXJ5IFN5c3RlbSBvZiB0aGUgVW5pdGVkIFN0YXRlcyINCnN1YnRpdGxlOiAiRGF0YSBWaXN1YWxpemF0aW9uIC0tIEZpbmFsIFByb2plY3QiDQphdXRob3I6ICJIYW5uYWggQnJpbnNrbywgSGFsZXkgRm9sa2VzLCBTYXJhaCBNb29yLCBhbmQgS2V2aW4gUGFwcGFzIg0KZGF0ZTogIldlZG5lc2RheSwgTWF5IDMsIDIwMTciDQpvdXRwdXQ6DQogIGh0bWxfZG9jdW1lbnQ6DQogICAgdG9jOiB5ZXMNCiAgaHRtbF9ub3RlYm9vazoNCiAgICB0b2M6IHllcw0KLS0tDQoNCiFbXG5dKGJvb2tzX2ltYWdlLnBuZykNCg0KIyMgU2Vzc2lvbiBJbmZvcm1hdGlvbg0KPGEgaHJlZj0iI3RvcCI+QmFjayBUbyBUb3A8L2E+DQoNCmBgYHtyIHNlc3Npb25JbmZvfQ0Kc2Vzc2lvbkluZm8ocGFja2FnZT1OVUxMKQ0KYGBgDQoNCiMjIEltcG9ydGFudCBSZXNvdXJjZXMgYW5kIExpbmtzDQo8YSBocmVmPSIjdG9wIj5CYWNrIFRvIFRvcDwvYT4NCg0KVG8gc2VlIG91ciBHaXRIdWIgcmVwb3NpdG9yeSwgY2xpY2sgW2hlcmVdKGh0dHBzOi8vZ2l0aHViLmNvbS9DYW5uYXRhVVREVi9zMTdkdmZpbmFscHJvamVjdC1mb2xrZXMtbW9vci1icmluc2tvLXBhcHBhcykuDQoNClRvIHNlZSBvdXIgU2hpbnkgYXBwbGljYXRpb24sIGNsaWNrIFtoZXJlXShodHRwczovL2hicmluc2tvLnNoaW55YXBwcy5pby9maW5hbHByb2plY3QpLg0KDQojIyBTdW1tYXJ5IG9mIExpYnJhcnkgRGF0YQ0KPGEgaHJlZj0iI3RvcCI+QmFjayBUbyBUb3A8L2E+DQoNClRoaXMgZGF0YSBzZXQgaXMgZnJvbSBrYWdnbGUuIFlvdSBjYW4gZmluZCB0aGlzIGRhdGEgW2hlcmVdKGh0dHBzOi8vd3d3LmthZ2dsZS5jb20vaW1scy9wdWJsaWMtbGlicmFyaWVzKS4gSXQgcHJvdmlkZXMgZGV0YWlsZWQgaW5mb3JtYXRpb24gYWJvdXQgbGlicmFyaWVzIGluIGVhY2ggc3RhdGUgaW4gdGhlIFVuaXRlZCBTdGF0ZXMuDQoNCmBgYHtyIHN0YXRlc30NCnN1bW1hcnkoc3RhdGVzKQ0KYGBgDQoNCiMjIFN1bW1hcnkgb2YgU3Vic2V0cyBvZiBMaWJyYXJ5IERhdGENCjxhIGhyZWY9IiN0b3AiPkJhY2sgVG8gVG9wPC9hPg0KDQpUaGlzIGRhdGEgaXMgYSBzdWJzZXQgb2YgdGhlIGxpYnJhcnkgZGF0YSB0aGF0IHdhcyByZS1jb25maWd1cmVkIHRvIG1ha2UgRGlnaXRhbCBDb3N0LCBPdGhlciBDb3N0LCBQcmludCBDb3N0LCBhbmQgVG90YWwgQ29zdCB0byBiZSBhIHN1YnNldCBvZiBhIGxhcmdlciBjYXRlZ29yeSAtLSBDb2xsZWN0aW9uIENvc3QgVHlwZS4gVGhpcyB3YXksIHRoZSBkYXRhIGNvdWxkIGJlIGVhc2lseSBncm91cGVkIG9uIHRoZSBzYW1lIHZpc3VhbGl6YXRpb24uDQoNCmBgYHtyIHN0YXRlc19ib3hwbG90fQ0Kc3VtbWFyeShzdGF0ZXNfYm94cGxvdCkNCmBgYA0KDQpUaGlzIGRhdGEgaXMgYSBzdWJzZXQgb2YgdGhlIGxpYnJhcnkgZGF0YSB0aGF0IHdhcyByZS1jb25maWd1cmVkIHRvIG1ha2UgQ2hpbGRyZW4ncyBQcm9ncmFtcywgWW91bmcgQWR1bHQgUHJvZ3JhbXMsIGFuZCBBZHVsdCBQcm9ncmFtcyB0byBiZSBhIHN1YnNldCBvZiBhIGxhcmdlciBjYXRlZ29yeSAtLSBQcm9ncmFtIFR5cGUuIFRoaXMgd2F5LCB0aGUgZGF0YSBjb3VsZCBiZSBlYXNpbHkgZ3JvdXBlZCBvbiB0aGUgc2FtZSB2aXN1YWxpemF0aW9uLg0KDQpgYGB7ciBQcm9ncmFtX0NhdGVnb3J5fQ0Kc3VtbWFyeShQcm9ncmFtX0NhdGVnb3J5KQ0KYGBgDQoNCiMjIFN1bW1hcnkgb2YgQ2Vuc3VzIERhdGENCjxhIGhyZWY9IiN0b3AiPkJhY2sgVG8gVG9wPC9hPg0KDQpUaGlzIGRhdGEgc2V0IGlzIGZyb20gdGhlIGNlbnN1cyBkYXRhIG9uIGRhdGEud29ybGQuIFlvdSBjYW4gZmluZCB0aGlzIGRhdGEgW2hlcmVdKGh0dHBzOi8vZGF0YS53b3JsZC91c2NlbnN1c2J1cmVhdS9hY3MtMjAxNS01LWUtZW1wbG95bWVudHN0YXR1cy9maWxlL1VTQV9BbGxfU3RhdGVzLmNzdikuIEl0IHByb3ZpZGVzIHRoZSBudW1iZXIgb2YgZW1wbG95ZWQgcGVyc29ucyBpbiBlYWNoIHN0YXRlLg0KDQpgYGB7ciBjZW5zdXNfZW1wbG95bWVudH0NCnN1bW1hcnkoY2Vuc3VzX2VtcGxveW1lbnQpDQpgYGANCg0KVGhpcyBkYXRhIHNldCBpcyBmcm9tIHRoZSBjZW5zdXMgZGF0YSBvbiBkYXRhLndvcmxkLiBZb3UgY2FuIGZpbmQgdGhpcyBkYXRhIFtoZXJlXShodHRwczovL2RhdGEud29ybGQvdXNjZW5zdXNidXJlYXUvYWNzLTIwMTUtNS1lLXNjaG9vbGVucm9sbG1lbnQvZmlsZS9VU0FfQWxsX1N0YXRlcy5jc3YpLiBJdCBwcm92aWRlcyB0aGUgbnVtYmVyIG9mIHBlb3BsZSBlbnJvbGxlZCBpbiBoaWdoIHNjaG9vbCBpbiBlYWNoIHN0YXRlLg0KDQpgYGB7ciBjZW5zdXNfZW5yb2xsbWVudH0NCnN1bW1hcnkoY2Vuc3VzX2Vucm9sbG1lbnQpDQpgYGANCg0KVGhpcyBkYXRhIHNldCBpcyBmcm9tIHRoZSBjZW5zdXMgZGF0YSBvbiBkYXRhLndvcmxkLiBZb3UgY2FuIGZpbmQgdGhpcyBkYXRhIFtoZXJlXShodHRwczovL2RhdGEud29ybGQvdXNjZW5zdXNidXJlYXUvYWNzLTIwMTUtNS1lLWluY29tZS9VU0FfQWxsX1N0YXRlcy5jc3YpLiBJdCBwcm92aWRlcyB0aGUgbWVkaWFuIGZhbWlseSBpbmNvbWUgaW4gZWFjaCBzdGF0ZS4NCg0KYGBge3IgTWVkaWFuX0ZhbWlseV9JbmNvbWV9DQpzdW1tYXJ5KE1lZGlhbl9GYW1pbHlfSW5jb21lKQ0KYGBgDQoNClRoaXMgZGF0YSBzZXQgaXMgZnJvbSBDdXJyZW50IFJlc3VsdHMuIFlvdSBjYW4gZmluZCB0aGlzIGRhdGEgW2hlcmVdKGh0dHBzOi8vd3d3LmN1cnJlbnRyZXN1bHRzLmNvbS9XZWF0aGVyL1VTL2F2ZXJhZ2UtYW5udWFsLXN0YXRlLXRlbXBlcmF0dXJlcy5waHApLiBJdCBwcm92aWRlcyB0aGUgYXZlcmFnZSB0ZW1wZXJhdHVyZSBpbiBlYWNoIHN0YXRlLg0KDQpgYGB7ciBTdGF0ZV9UZW1wX2FuZF9SYWlufQ0Kc3VtbWFyeShTdGF0ZV9UZW1wX2FuZF9SYWluKQ0KYGBgDQoNClRoaXMgZGF0YSBzZXQgaXMgZnJvbSBSZXNlYXJjaGVyIFRvb2xzLiBZb3UgY2FuIGZpbmQgdGhpcyBkYXRhIFtoZXJlXShodHRwOi8vcmVzZWFyY2hlcnRvb2xzLmJsb2dzcG90LmNvbS8yMDEyLzA5L2V4Y2VsLWZpbGUtd2l0aC11cy1zdGF0ZXMtYWJicmV2aWF0aW9ucy5odG1sKS4gSXQgcHJvdmlkZXMgdXNlZnVsIGNvbm5lY3Rpb25zIGJldHdlZW4gc3RhdGUgbmFtZXMsIHN0YXRlIGNvZGVzLCBhbmQgcmVnaW9ucy4gDQoNCmBgYHtyIHN0YXRlc193aXRoX3JlZ2lvbnN9DQpzdW1tYXJ5KHN0YXRlc193aXRoX3JlZ2lvbnMpDQpgYGANCg0KIyMgVGhlIFRhYmxlYXUgVmlzdWFsaXphdGlvbnMNCjxhIGhyZWY9IiN0b3AiPkJhY2sgVG8gVG9wPC9hPg0KDQojIyBUaGUgU2hpbnkgVmlzdWFsaXphdGlvbnMNCjxhIGhyZWY9IiN0b3AiPkJhY2sgVG8gVG9wPC9hPg0K</div>
 
 
 
