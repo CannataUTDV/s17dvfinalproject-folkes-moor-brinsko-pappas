@@ -86,5 +86,51 @@ summary(states_with_regions)
 ## The Tableau Visualizations
 <a href="#top">Back To Top</a>
 
+This is a map of the United States, color-coded by region. This is <i>not</i> one of our visualizations. It simply shows the regions used in the following two visualizations.   
+![\n](Filled_US_State_Map.png)
+
+
+![\n](Dual_Combination_Programs_Visits.png)
+
+![\n](Stacked_bar_program_breakdown.png)
+
+![\n](Scatterplot_Annual_Temp_vs_Visits.png)
+
+![\n](box_and_whisker_collection_costs.png)
+
+![\n](Scatterplot_collection_cost_and_size.png)
+
+![\n](Crosstab_revenue_cost_ratio.png)
+
+![\n](Filled_map_computers_kpi.png)
+
+![\n](Histogram_computer_use.png)
+
+![\n](Dashboard_Library_programs_vs_Visits.png)
+
+![\n](Dashboard_Collection_Cost_vs_Size.png)
+
+![\n](Dashboard_Computer_Count_and_Usage.png)
+
 ## The Shiny Visualizations
 <a href="#top">Back To Top</a>
+
+![\n](Boxplot.png)
+
+![\n](Histogram.png)
+
+![\n](Scatterplot.png)
+
+
+![\n](Crosstab.png)
+
+![\n](Barchart.png)
+
+![\n](Barchart2.png)
+
+
+
+
+
+
+
