@@ -1,0 +1,29 @@
+Box Plot:
+This boxplot shows the minimum, maximum, first quartile, third quartile, and median of the "Cost" values for each expenditure, including Digital Collection Expenditures, Print Collection Expenditures, Other Expenditures, and Total Expenditures. The user may select the "Cost Range" that they would like to see.
+
+
+This is interesting because you can see how many states are outliers in spending on Digital and Print Expenditures. 
+
+Histogram:
+This histogram shows the number of Librarians per state.
+
+This is interesting because you can see the overall trend of lot of states having relatively little Librarians (>300), while one state, New York, has almost a thousand more librarians than the second highest state, CA, created a gap in the histogram. 
+
+Scatterplot:
+This graph shows how States compare in terms of Library Visits per Median Family Income. This uses a join with the 2015 Census data.
+
+This is interesting because it shows a trend that richer states have more library visits. We were surprised by this because libraries provide many services for free that would benefit low income families. 
+
+Crosstabs:
+This graph shows the Cost per Category per State. The graph is the colored according to the table calculation: sum(Library_Visits) /sum(Service_Population_Without_Duplicates. The limits for the KPI can be selected by the user. 
+
+This is interesting because you can see that Texas has some of the highest library costs in the country, but still has a relatively low number of visitors per service population. 
+
+Barchart 1:
+This graph shows the number of Librarians per State, and the fill of the graph is colored according to the table calculation of the number of citizens per Librarian. 
+
+This is interesting because you can see that GA has a relatively low number of overall librarians, but has by far the highest ratio of librarians per citizen. 
+
+Barchart 2:
+This graph shows the A
+
