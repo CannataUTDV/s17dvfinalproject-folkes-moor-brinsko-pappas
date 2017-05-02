@@ -43,7 +43,7 @@ dashboardPage(skin = "black",
                          h3('Here is an explanation of a simple boxplot.'),
                          img(src='boxplot_explanation.png')
                 ),
-                tabPanel("Box Plot",
+                tabPanel("Cost Range per Category",
                          h4('This boxplot shows the minimum, maximum, first quartile, third quartile, and median of the "Cost" values for each expenditure, including Digital Collection Expenditures, Print Collection Expenditures, Other Expenditures, and Total Expenditures. The user may select the "Cost Range" that they would like to see.'),
                          sliderInput("boxCostRange1", "Cost Range:",
                                      min = 0, max = 100000000, 
@@ -62,7 +62,7 @@ dashboardPage(skin = "black",
                          hr(), # Add space after button.
                          DT::dataTableOutput("histogramData1")
                 ),
-                tabPanel("Simple Histogram",
+                tabPanel("Librarian Histogram","Shows the distribution of counts for Librarians per State",
                          plotlyOutput("histogramPlot1", height=1000))
               )
       ),
@@ -78,7 +78,7 @@ dashboardPage(skin = "black",
                          hr(), # Add space after button.
                          DT::dataTableOutput("scatterData1")
                 ),
-                tabPanel("Scatter Plot", plotlyOutput("scatterPlot1", height=1000))
+                tabPanel("Library Visits vs Median Family Income","Compares library visits with Median Family Income in 2015", plotlyOutput("scatterPlot1", height=1000))
               )
       ),
       # End Scatter Plots tab content.
@@ -96,7 +96,7 @@ dashboardPage(skin = "black",
               hr(), # Add space after button.
               DT::dataTableOutput("data1")
             ),
-            tabPanel("Crosstab","Text represents the cost per Category for each State, The KPI represents the Library Visits/Population according to the user inputed parameters.", plotOutput("plot1", height=1000))
+            tabPanel("Cost per Category for Each State","Text represents the cost per Category for each State, The KPI represents the Library Visits/Population according to the user inputed parameters.", plotOutput("plot1", height=1000))
           )
         ),
       # End Crosstab tab content.
