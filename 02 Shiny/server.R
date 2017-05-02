@@ -240,6 +240,7 @@ shinyServer(function(input, output) {
                                                          extensions = list(Responsive = TRUE, FixedHeader = TRUE) )
   })
   output$barchartPlot1 <- renderPlot({ggplot(dfbc1(), aes(x=State, y=Librarians, fill = citizens_per_lib)) +
+      theme_classic() +
       geom_col(stat = "identity")
   })
   
