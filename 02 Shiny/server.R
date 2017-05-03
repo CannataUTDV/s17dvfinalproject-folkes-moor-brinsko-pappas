@@ -11,6 +11,7 @@ require(plotly)
 require(lubridate)
 
 online0 = TRUE
+library(plotly)
 
 # The following query is for the select lists. 
 if(online0) {
@@ -92,7 +93,7 @@ shinyServer(function(input, output) {
   })
   # End Box Plot Tab ___________________________________________________________
   
-  # Begin Histgram Tab ------------------------------------------------------------------
+  # Begin Histogram Tab ------------------------------------------------------------------
   dfh1 <- eventReactive(input$click4, {
     if(online4() == "SQL") {
       print("Getting from data.world")
@@ -240,18 +241,18 @@ shinyServer(function(input, output) {
                                                          extensions = list(Responsive = TRUE, FixedHeader = TRUE) )
   })
   output$barchartPlot1 <- renderPlot({ggplot(dfbc1(), aes(x=State, y=Librarians, fill = citizens_per_lib)) +
-      theme_classic() +
       geom_col(stat = "identity") +
-      geom_line(aes(x = State_Code, y = mean(Librarians)), colour = "black", size = 1.5)
+      geom_line(aes(x = State_Code, y = mean(Librarians)), colour = "black", size = 1.5) +
+  theme_classic()
   })
   
   
   output$barchartPlot2 <- renderPlot({ggplot(data = join) +
       geom_col(aes(x = State, y = Hours_Open, fill = (Hours_Open > 1000000))) +
-      theme_classic() +
       scale_y_continuous(labels = scales::comma) +
       labs(x = "State", y = "Library Hours Open") +
-      geom_line(aes(x = State_Code, y = Enrollment_9to12), colour = "black", size = 0.5)
+      geom_line(aes(x = State_Code, y = Enrollment_9to12), colour = "black", size = 0.5) +
+      theme_classic()
   })
   
   
