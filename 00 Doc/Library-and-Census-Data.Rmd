@@ -26,6 +26,13 @@ To see our Shiny application, click [here](https://hbrinsko.shinyapps.io/finalpr
 sessionInfo(package=NULL)
 ```
 
+## The ETL Script
+<a href="#top">Back To Top</a>
+
+```{r etl}
+source("states_ETLscript.R")
+```
+
 ## Summary of Library Data
 <a href="#top">Back To Top</a>
 
