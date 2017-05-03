@@ -150,7 +150,7 @@ shinyServer(function(input, output) {
       theme(axis.text.y=element_text(size=16, hjust=0.5)) +
       geom_point(aes(x=visits_per_pop, y=median_fam_income, colour=State), size=2) +
       geom_smooth(aes(x=visits_per_pop, y=median_fam_income), method = lm) +
-      labs(x = "Ratio of Library Visits to State Population", y = "Median Family Income") +
+      labs(x = "Library Visits per Capita", y = "Median Family Income") +
       theme_classic()
       ggplotly(p)
   })
