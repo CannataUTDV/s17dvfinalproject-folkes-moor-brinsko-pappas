@@ -12,19 +12,19 @@ output:
 
 ![\n](books_image.png)
 
-## Session Information
-<a href="#top">Back To Top</a>
-
-```{r sessionInfo}
-sessionInfo(package=NULL)
-```
-
 ## Important Resources and Links
 <a href="#top">Back To Top</a>
 
 To see our GitHub repository, click [here](https://github.com/CannataUTDV/s17dvfinalproject-folkes-moor-brinsko-pappas).
 
 To see our Shiny application, click [here](https://hbrinsko.shinyapps.io/finalproject).
+
+## Session Information
+<a href="#top">Back To Top</a>
+
+```{r sessionInfo}
+sessionInfo(package=NULL)
+```
 
 ## Summary of Library Data
 <a href="#top">Back To Top</a>
@@ -86,30 +86,78 @@ summary(states_with_regions)
 ## The Tableau Visualizations
 <a href="#top">Back To Top</a>
 
-This is a map of the United States, color-coded by region. This is <i>not</i> one of our visualizations. It simply shows the regions used in the following two visualizations.   
+Map of the United States color-coded by region. This is an interactive map that allows you to filter what is shown on sheet Library Programs vs. Visits and Program Breakdown by Type.   
 ![\n](Filled_US_State_Map.png)
 
+Dual combination showing the number of library programs per 10,000 people and the annual visits per capita for each state. Two calculated measured were created for this visualization. 
 
+1) Library_programs_per_10K = [Library_Programs] *10000 / [State_Population]
+2) Library_visits_per_capita = [Library_Visits] / [State_Population]
+
+Additionally, a set was created to show High Visit States which is a grouping of states who average more than 5.5 visits per person per year.
+
+The South region has zero states in the High Visit States set. The other three regions have either 4 or 5 states each. This implies that libraries in the south could benefit from talking to the other regions about the kinds of programs they are implementing to get people to go to the library. Additionally, the states in the southern region have noticeably fewer library programs per 10,000 residents. Looking at all of the regions, there is a general positive correlation between the number of programs per 10,000 people and the average number of visits per person. Therefore, if a state wanted to increase the number of visits to public libraries a larger budget could be allocated for library programs.
 ![\n](Dual_Combination_Programs_Visits.png)
 
+A stacked bar graph showing the percentage breakdown of total library programs into those for children, adolescents, and those for adults. To determine this, three measure calculations were used, however, these were not stored as new measures. These calculations changed the data from number of programs to a percentage of total programs for each of the three program categories. 
+
+1) Calculation for percent children programs: [Childrens_programs] / [Library_programs]
+2) Calculation for percent adolescent programs: [Young_adult_programs] / [Library_programs]
+3) Calculation for percent adult programs: [Adult_programs] / [Library_programs]
+
+In general, if less than 58% of states library programs are aimed at children then the annual number of visits per capita is lower. Additionally, southern states (on average) offer a lower percentage of children programs than the other three regions. This could be a contributing factor to the lower number of visits to libraries in the south. 
 ![\n](Stacked_bar_program_breakdown.png)
 
-![\n](Scatterplot_Annual_Temp_vs_Visits.png)
+This is a dashboard for the previous three visualizations.
+![\n](Dashboard_Library_programs_vs_Visits.png)
 
+Box and whisker plot showing the total digital collection cost, print collection cost, other collection cost, and total collection cost for each state. The visualization has four pages, one for each region.
+
+All four regions spend the most on print collections with digital and other (such as audio) collection costs being roughly similar. Heavily populated states (Texas, California, New York, Ohio) fall outside the interquartile range for collection costs due to the significantly increased volume of collection material required in these larger states.
 ![\n](box_and_whisker_collection_costs.png)
 
+Scatterplot showing the relationship between the total collection cost and size for each state color-coded by region with a trendline for each region.
+
+From the regional trend lines on this visualization, it can be seen that Midwest and Northeast spend less per collection item than South and West regions. The South and West regions should consult with the material procurement teams in the Midwest and Northeast regions to determine how to reduce collection costs.
 ![\n](Scatterplot_collection_cost_and_size.png)
 
+This is a dashboard for the previous two visualizations.
+![\n](Dashboard_Collection_Cost_vs_Size.png)
+
+A scatter plot showing how the average annual temperature in a state is related to the average annual visits per capita. The average annual visits per capita was found using the following formula: [Library_Visits]/[State_Population]. The points are color-coded by region and have a trend line with a 95% confidence bands.
+
+There is a general trend that the higher the average temperature in a state the fewer number of visits per capita to the libraries. This is a logical, yet interesting result, as warmer temperatures lend themselves more towards being active and outdoors than attending the library. 
+![\n](Scatterplot_Annual_Temp_vs_Visits.png)
+
+A crosstab of operational revenue to cost ratio. A red-green scale was used to color the average ratio value of Profit to Expense Ratio with a ratio of 1.0 selected as the transition point between the colors. The crosstab is created with values given by state and separated by sub-region.
+
+Profit to Expense Ratio = [Total_Operating_Revenue]/[Total_Operating_Expenditures]
+	
+New England has the lowest revenue to cost ratio. Most of the region's libraries are profiting but no library is particularly profitable.
 ![\n](Crosstab_revenue_cost_ratio.png)
 
+A filled map of the United States showing the average number of computers per library for each state. A KPI was created for this statistic and the filled color of each individual state is coordinated to whether or not the KPI is low, medium, or high and the range for each category of the KPI can be adjusted by the user. KPI Low was set to 12 and KPI Medium is set to 19.
+
+KPI Computers per Library =
+
+IF AVG([Public_Internet_Computers] / ([Central_Libraries] + [Branch_Libraries])) <= [KPI Low] THEN "Low"
+ELSEIF AVG([Public_Internet_Computers] / ([Central_Libraries] + [Branch_Libraries])) <= [KPI Medium] THEN "Medium"
+ELSE "High"
+END
+
+KPI Low: ranges from 1 to 12
+KPI Medium: ranges from 13 to 20
+
+The midwest has the least computers per library compared to other regions. The South has the most computers per library. 
 ![\n](Filled_map_computers_kpi.png)
+
+A histogram of showing the annual computer usage and the states that fall into each bin with the bin size being 2.5 million. The columns are labelled with each state fall into the bin. Annual computer usage is measured in number of sessions logged.The KPI Computers per Library was used again in this case. KPI Low was set to 12 and KPI Medium is set to 19.
+
+States that have medium to high amounts of amounts of computers per libraries (blue and red blocks) also tend to have higher amounts of computer usage. This could indicate that the extra computers available to the public allow for more computer usage.
 
 ![\n](Histogram_computer_use.png)
 
-![\n](Dashboard_Library_programs_vs_Visits.png)
-
-![\n](Dashboard_Collection_Cost_vs_Size.png)
-
+This is a dashboard for the previous two visualizations.
 ![\n](Dashboard_Computer_Count_and_Usage.png)
 
 ## The Shiny Visualizations
@@ -148,7 +196,7 @@ This is interesting because you can see that GA has a relatively low number of o
 
 This graph shows compares the total open library hours and the high school enrollment in each state.
 
-This is interesting because.. 
+This is interesting because, generally speaking, the states with the highest hours open have the highest high school enrollment. 
 
 ![\n](Barchart2.png)
 
