@@ -118,7 +118,7 @@ dashboardPage(skin = "black",
              DT::dataTableOutput("barchartData2")
           ),
           tabPanel("Librarians per State Population", "x= State, y = Librarians, fill = State Population / Librarians", plotOutput("barchartPlot1", height=1500)),
-          tabPanel("Young Adult Program Audiences vs 9-12 Grade Enrollment", "Blue = Audience of over 40k, Red = Audience less than 40k, Black line = Audience Median", plotOutput("barchartPlot2", height=700) )
+          tabPanel("Library Hours Open per State", "Blue = Hours Open over 1,000,000, Red = Hours Open less than 1,000,000, Black line = 9-12th Grade Enrollment", plotOutput("barchartPlot2", height=700) )
         )
       )
       # End Barchart tab content.
