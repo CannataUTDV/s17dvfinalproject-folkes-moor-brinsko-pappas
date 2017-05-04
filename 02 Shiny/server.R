@@ -251,6 +251,7 @@ shinyServer(function(input, output) {
       geom_col(aes(x = State, y = Hours_Open, fill = (Hours_Open > 1000000))) +
       scale_y_continuous(labels = scales::comma) +
       labs(x = "State", y = "Library Hours Open") +
+      scale_fill_discrete(guide = guide_legend(title = "Sum of Library Hours Open Greater than 1,000,000")) +
       geom_line(aes(x = State_Code, y = Enrollment_9to12), colour = "black", size = 0.5) +
       theme_classic()
   })
